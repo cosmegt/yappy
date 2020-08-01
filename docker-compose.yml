@@ -3,10 +3,10 @@ services:
   nginx:
     restart: always
     build:
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       context: ./nginx
     ports:
-      - '80:80'
+      - '4000:80'
   mongo:
     container_name: mongo
     image: mongo
@@ -15,7 +15,7 @@ services:
   api:
     restart: always  
     build:
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       context: ./server
     volumes: 
       - /app/node_modules
@@ -28,10 +28,12 @@ services:
       - mongo
   client:
     build:
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       context: ./client
     volumes:
       - /app/node_modules
       - ./client:/app
     links:
       - api
+
+   
